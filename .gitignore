@@ -1,0 +1,14 @@
+target/
+scalaServer/target
+ml/target
+ml/target/
+common/target
+*.swp
+*.swo
+access.log.1
+.idea/
+test/scalaServer/metastore_db
+test/scalaServer/test/metastore_d1b
+test/tmp
+test/logSender/access.log.1
+test/scalaServer/test
