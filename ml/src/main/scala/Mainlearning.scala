@@ -1,7 +1,6 @@
 import database._
-import helper.utiles
 import modelAlgo.ModelSingleton
-import org.apache.spark.sql.SparkSession
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -12,24 +11,23 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object Main extends utiles {
 
-  val spark: SparkSession = SparkSession.builder()
-    .appName("machine learnig")
-    .config("spark.master", "local")
-    .getOrCreate()
-
   def main(array: Array[String]): Unit = {
 
+    todebug(" creation des database - metrics")
     AucDatabase.create()
     MetricDatabase.create()
     DmpDatabase.create()
     OverfitDatabase.create()
     UserDatabase.create()
-
     todebug("run model ")
 
-    try { ModelSingleton.toRun(spark) } catch {
-      case e: RuntimeException => todebug("toRun from  model return exception") }
-
+    try {
+      ModelSingleton.isValild()
+      // ModelSingleton.runMetric(ModelSingleton.metrics)
+      //  ModelSingleton.load()
+      ModelSingleton.runOverfit()
+    }
+    catch { case e: RuntimeException => todebug("runtime error while processing data") }
   }
 }
 

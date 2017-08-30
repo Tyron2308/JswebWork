@@ -3,6 +3,10 @@
 import socket
 import time
 
+
+
+//script python pour envoyer au server des logs.
+
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
 BUFFER_SIZE = 4096

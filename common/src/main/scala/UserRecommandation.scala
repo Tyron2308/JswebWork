@@ -25,7 +25,8 @@ object CassandraContainerConnector2 {
   val connector = ContactPoints(host).keySpace(definition.keySpacemet)
 }
 
-object UserDatabase extends UserDatabase(CassandraContainerConnector2.connector)
+//object UserDatabase extends UserDatabase(CassandraContainerConnector2.connector)
+object UserDatabase extends UserDatabase(DefaultConnectorUser.connector)
 
 abstract class Usermet extends Table[Usermet,User] {
   object id extends UUIDColumn with PartitionKey

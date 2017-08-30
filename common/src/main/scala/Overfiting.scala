@@ -23,7 +23,16 @@ class OverfitDatabase(override val connector : CassandraConnection)
   object users extends OverfitMetrics with Connector
 }
 
-object OverfitDatabase extends OverfitDatabase(CassandraContainerConnector4.connector)
+object OverfitDatabase extends OverfitDatabase(OverfitConnector.connector)
+//bject OverfitDatabase extends OverfitDatabase(CassandraContainerConnector4.connector)
+
+
+/*** name : id du modele. ud: prediction from good model or bad model, hyperparam : hyperarameter du modele
+     lab: user prediction confiance confiacne
+     ancien : metric trainingdata reel: metric cvset
+
+     mettre ces deux dernieres en vector et rajouter plus de metrics a ce vector
+  ***/
 
 abstract class OverfitMetric extends Table[OverfitMetrics, OverfitLog] {
   object id extends UUIDColumn with PartitionKey

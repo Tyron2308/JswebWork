@@ -22,11 +22,16 @@ class MetricDatabase(override val connector : CassandraConnection)
   object users extends ConcreteMetrics with Connector
 }
 
-object MetricDatabase
-  extends MetricDatabase(CassandraContainerConnector3.connector)
+//object MetricDatabase extends MetricDatabase(CassandraContainerConnector3.connector)
+object MetricDatabase extends MetricDatabase(MetricConnector.connector)
 
 case class RmseLog1(id: UUID, modelname: String)
 
+/*** name: modelname -  god : good or bad predictor -
+  * hyper : hyperparameter - label : prediction id product confiance ratings
+  * meansquare : root means square error
+  *
+  */
 abstract class AMetrics extends Table[AMetrics, RmseLog1] {
   object id   extends UUIDColumn with PartitionKey
   object name extends StringColumn

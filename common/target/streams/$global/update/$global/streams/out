@@ -1,4 +1,4 @@
-[0m[[0minfo[0m] [0mUpdating {file:/home/tyron/Desktop/Recommander/}common...[0m
+[0m[[0minfo[0m] [0mUpdating {file:/home/tyron/Desktop/Work/JsWebWork/}common...[0m
 [0m[[0mdebug[0m] [0m:: resolving dependencies :: com.JSWB#common_2.11;0.1.0-SNAPSHOT[0m
 [0m[[0mdebug[0m] [0m	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool][0m
 [0m[[0mdebug[0m] [0m	validate = true[0m
@@ -7989,21 +7989,21 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4!scala-parser-combinators_2.11.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] jline#jline;2.12.1!jline.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 1150ms :: artifacts dl 13ms[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT compile produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-compile.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT runtime produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-runtime.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT test produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-test.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT provided produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-provided.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT optional produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-optional.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT compile-internal produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-compile-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT runtime-internal produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-runtime-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT test-internal produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-test-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT plugin produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-plugin.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT sources produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-sources.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT docs produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-docs.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT pom produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-pom.xml[0m
-[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT scala-tool produced in /home/tyron/Desktop/Recommander/common/target/resolution-cache/reports/com.JSWB-common_2.11-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (1150ms resolve - 13ms download)[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 1439ms :: artifacts dl 34ms[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT compile produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-compile.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT runtime produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-runtime.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT test produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-test.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT provided produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-provided.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT optional produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-optional.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT compile-internal produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-compile-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT runtime-internal produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-runtime-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT test-internal produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-test-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT plugin produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-plugin.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT sources produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-sources.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT docs produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-docs.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT pom produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-pom.xml[0m
+[0m[[0mdebug[0m] [0m	report for com.JSWB#common_2.11;0.1.0-SNAPSHOT scala-tool produced in /home/tyron/Desktop/Work/JsWebWork/common/target/resolution-cache/reports/com.JSWB-common_2.11-scala-tool.xml[0m
+[0m[[0mdebug[0m] [0m	resolve done (1439ms resolve - 34ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m
 [0m[[33mwarn[0m] [0mThere may be incompatibilities among your library dependencies.[0m
 [0m[[33mwarn[0m] [0mHere are some of the libraries that were evicted:[0m

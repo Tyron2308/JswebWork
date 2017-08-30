@@ -2,13 +2,16 @@ import scala.sys.process.Process
 import complete.DefaultParsers._
 
 
-/*** sbt avec plusieurs modules - ml - scalaServer - common - rootproject
+/*** sbt root avec plusieurs submodules - ml - scalaServer - common
+  *
   *  pour compiler le tout faire depuis le racine du repot : sbt - compile - run
   *  pour creer un fat jar : assembly - puis aller dans le target a la racine du repot
-  *  key pour push directement mais ca marche qu'avec mon repo, faut changer le script
-  *  pour lancer un submodule faire : submodule/run apres avoir compile le sbt principal 
+  *  git son code depuis sbt : run sbt - push : task pour push directement mais ca marche
+  *  qu'avec mon repo pour l'instant, faut changer le script
+  *
+  *  pour effecter une action sur un submodule faire : submodule/run ou submodule/compile ou submodule/package etc..
+  *  apres avoir compile le sbt principal (recommande sauf si pas besoin de dependance d autres modules)
   */
-
 
 name := "RecomanderSystemJSWEB"
 
@@ -21,7 +24,7 @@ fork in run := true
 mainClass in (Compile, run) := Some("Main")
 mainClass in assembly := Some("Main")
 
-//assemblySettings
+//assemblySettings /*** find out whky this is not working ***/
 
 lazy val push = inputKey[Unit]("test")
 push := { val s: TaskStreams = streams.value
@@ -55,6 +58,8 @@ lazy val commonsettings = Seq(
   version  := "0.1.0-SNAPSHOT",
   scalaVersion := "2.11.8" )
 
+
+/*** ***/
 val sequence_common = Seq("org.specs2" %% "specs2-core" % "3.9.1" % "test",
     "junit" % "junit" % "4.11" % "test",
     "com.novocode" % "junit-interface" % "0.11" % "test",
