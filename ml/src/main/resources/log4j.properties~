@@ -1,0 +1,3 @@
+logger-startup-timeout=5s
+
+log4j.logger.org=OFF

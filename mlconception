@@ -1,0 +1,59 @@
+trouver les utilisateurs les plus frequents
+trouver les produits les plus selectionnes
+
+scale input with 0/1 en function de si oui ou non
+implicit data donc ratings = low confidence si valeur count proche de zero
+	      	   	     forte confidence si valeur count est loin de zero
+
+papier 1 fait
+confiance(i) = 1 + hyperparameter * [1, 0]
+
+
+use trainImplicit
+https://stats.stackexchange.com/questions/133565/how-to-set-preferences-for-als-implicit-feedback-in-collaborative-filtering
+http://predictionio.incubator.apache.org/templates/recommendation/batch-evaluator/
+http://danielnee.com/2016/09/collaborative-filtering-using-alternating-least-squares/
+
+cold start feet -> use demographic item best selected or best select global 
+auc
+
+	recupere label depart
+	recupere la fraction positive des predictions
+	recupere la fraction negative des predictions
+	aleatoirement 
+	divise la partie positive / total
+	divise la partie negative / total
+	difference des deux
+
+
+resultat auc
+cross validation test avec la data garde pour les test avec pub cliker par utilisateur trier en fonction du ranking.
+faire predire le recommander system et observer comment sont ranker cette data.
+
+auc sur cv test aussi 
+hyperparameter choisi
+resultat roc
+nombre de prediction reussi
+rmse
++ polynomial feature si besoin
+
+appliquer une logistic regression avec ces features
+
+	  score function wTX
+	  minimize cost function
+	  update thetha
+	  continuer jusqu'a convergence
+
+
+choisir step-size et number of iteration
+find bias - variance tradeoff
+add polynomial feature and compare RMSE
+
+
+test ranker system avec validation test
+compute auc & rmse to update weight
+
+
+utiliser cosine pour etablir la similarite entre deux produits
+definir categorie des objets 
+store resultat dans bdd par tyype d'objet ?

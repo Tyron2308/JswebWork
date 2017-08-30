@@ -1,0 +1,19 @@
+<VirtualHost *:80>
+        ServerAdmin     webmaster@cptefr.com
+        ServerName      will.cptefr.com
+
+
+        DocumentRoot /space/www/will.cptefr.com/
+
+        php_admin_value error_log       /space/logs/apache/will.cptefr.com/php/php.log
+        ErrorLog                        /space/logs/apache/will.cptefr.com/errors.log
+        CustomLog                       /space/logs/apache/will.cptefr.com/access.log combined
+
+        <Directory /space/www/will.cptefr.com>
+                AllowOverride all
+                Options FollowSymLinks
+        </Directory>
+
+        php_value magic_quotes_gpc 0
+        php_admin_value max_execution_time 60
+</VirtualHost>

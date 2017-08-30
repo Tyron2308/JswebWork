@@ -1,0 +1,1 @@
+docker run --name srvlinked1 -itd -p 8989:5005 --link cassie:cassandra -d scalaserver

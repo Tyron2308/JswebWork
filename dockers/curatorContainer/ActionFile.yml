@@ -1,0 +1,14 @@
+actions:
+  1:
+    action: delete_indices
+    description: "delete indices older than 24 hours"
+    options:
+      continue_if_exception: False
+      disable_action: False
+      ignore_empty_list: True
+    filters:
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: hours
+        unit_count: 1
