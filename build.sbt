@@ -58,11 +58,15 @@ lazy val commonsettings = Seq(
   version  := "0.1.0-SNAPSHOT",
   scalaVersion := "2.11.8" )
 
-assemblyShadeRules in assembly := Seq(
-  ShadeRule.rename("com.google.guava.**" -> "my_conf.@1")
-    .inLibrary("com.google.guava" % "config" % "11.0")
-    .inProject
-)
+assemblyShadeRules in assembly :=
+  Seq(ShadeRule.rename("com.google.**" -> "shadeio.@1").inAll)
+
+
+//assemblyShadeRules in assembly := Seq(
+//  ShadeRule.rename("com.google.guava.**" -> "my_conf.@1")
+//    .inLibrary("com.google.guava" % "config" % "11.0")
+//    .inProject
+//)
 
 
 /*** ***/
@@ -79,9 +83,9 @@ val sequence_common = Seq("org.specs2" %% "specs2-core" % "3.9.1" % "test",
   cross CrossVersion.full exclude("orgslf4j", "log4j-over-slf4j")))
 
 val sequencespark = Seq(
-  "org.apache.spark" %% "spark-core" % "2.1.0",
-  "org.apache.spark" %% "spark-sql" % "2.1.0",
-  "org.apache.spark"  %% "spark-mllib" % "2.1.0")
+  "org.apache.spark" %% "spark-core" % "2.1.0" % Provided,
+  "org.apache.spark" %% "spark-sql" % "2.1.0" % Provided,
+  "org.apache.spark"  %% "spark-mllib" % "2.1.0" % Provided)
 
 
 lazy val root = project.in( file(".") )

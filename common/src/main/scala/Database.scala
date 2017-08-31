@@ -44,7 +44,7 @@ class DmpDatabase(override val connector: CassandraConnection)
 //object DmpDatabase extends DmpDatabase(DefaultConnector.connector)
 object DmpDatabase extends DmpDatabase(CassandraContainerConnector.connector)
 
-abstract class Logs extends Table[Logs, Record] {
+abstract class retargeting extends Table[retargeting, Record] {
   object id extends UUIDColumn with PartitionKey
   object ip extends StringColumn
   object date extends StringColumn
@@ -71,7 +71,7 @@ abstract class Logs extends Table[Logs, Record] {
   }
 }
 
-abstract class ConcreteLog extends Logs with RootConnector {
+abstract class ConcreteLog extends retargeting with RootConnector {
   def store(rec: Record): Future[ResultSet] = {
     insert
       .value(_.id, rec.id)

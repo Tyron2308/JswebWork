@@ -279,3 +279,20 @@ assembly
 compile 
 assembly
 compile 
+reload
+show dependency
+dependency
+help
+inspect
+inspect tree
+compile 
+assembly
+ls 
+exit 
+assembly
+reload
+compile 
+assembly
+reload
+compile 
+assembly
