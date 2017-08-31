@@ -41,8 +41,8 @@ class DmpDatabase(override val connector: CassandraConnection)
   object users extends ConcreteLog with Connector
 }
 
-object DmpDatabase extends DmpDatabase(DefaultConnector.connector)
-//object DmpDatabase extends DmpDatabase(CassandraContainerConnector.connector)
+//object DmpDatabase extends DmpDatabase(DefaultConnector.connector)
+object DmpDatabase extends DmpDatabase(CassandraContainerConnector.connector)
 
 abstract class Logs extends Table[Logs, Record] {
   object id extends UUIDColumn with PartitionKey

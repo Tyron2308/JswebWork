@@ -23,8 +23,8 @@ class AucDatabase(override val connector : CassandraConnection)
   object users extends CMetrics with Connector
 }
 
-//object AucDatabase extends AucDatabase(CassandraContainerConnector1.connector)
-object AucDatabase extends AucDatabase(AucConnector.connector)
+object AucDatabase extends AucDatabase(CassandraContainerConnector1.connector)
+//object AucDatabase extends AucDatabase(AucConnector.connector)
 
 abstract class AucMetrics extends Table[AucMetrics, AucLog] {
   object id extends UUIDColumn with PartitionKey

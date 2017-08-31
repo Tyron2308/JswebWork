@@ -7,12 +7,12 @@ import akkahelper.LogEnum.LogEnum
 import com.datastax.driver.core.utils.UUIDs
 import database.MetricDatabase
 import helper.utiles
+import org.apache.spark.SparkContext
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.mllib.evaluation.RegressionMetrics
 import org.apache.spark.mllib.recommendation.{MatrixFactorizationModel, Rating}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
@@ -36,29 +36,6 @@ class RmseMetric(metricDatabase: MetricDatabase.users.type, spark: SparkSession)
     val positive_regression     = new RegressionMetrics(neglabelpred)
     val positivereg             = positive_regression.rootMeanSquaredError
     val negativereg             = negative_regression.rootMeanSquaredError
-
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC RMSE ")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC RMSE")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC RMSE ")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC RMSE")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC RMSE ")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC RMSE")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-    todebug("AUCCCCCCCCCCCCCCCCCC METRIC")
-
     val m = hyper.asInstanceOf[Hyperparameter]
 
     val list : List[Double] = List(m.iterationn(0).toDouble, m.alpha, m.rank.toDouble, m.reg)
@@ -90,11 +67,6 @@ class RmseMetric(metricDatabase: MetricDatabase.users.type, spark: SparkSession)
             (-1, Array.empty[Any])
         }
     }
-
-
-    import spark.implicits._
-//    spark.sparkContext.parallelize(pospoint).toDF().show()
-
 
     val withfilter = pospoint.filter {
       case (ip, array) if (ip != -1) => true

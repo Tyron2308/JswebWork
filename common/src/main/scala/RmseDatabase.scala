@@ -22,8 +22,8 @@ class MetricDatabase(override val connector : CassandraConnection)
   object users extends ConcreteMetrics with Connector
 }
 
-//object MetricDatabase extends MetricDatabase(CassandraContainerConnector3.connector)
-object MetricDatabase extends MetricDatabase(MetricConnector.connector)
+object MetricDatabase extends MetricDatabase(CassandraContainerConnector3.connector)
+//object MetricDatabase extends MetricDatabase(MetricConnector.connector)
 
 case class RmseLog1(id: UUID, modelname: String)
 

@@ -8,6 +8,7 @@ import com.datastax.driver.core.utils.UUIDs
 import database._
 import databasehelper.AucLog
 import helper.utiles
+import org.apache.spark.SparkContext
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
 import org.apache.spark.mllib.recommendation.{MatrixFactorizationModel, Rating}

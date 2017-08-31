@@ -58,6 +58,12 @@ lazy val commonsettings = Seq(
   version  := "0.1.0-SNAPSHOT",
   scalaVersion := "2.11.8" )
 
+assemblyShadeRules in assembly := Seq(
+  ShadeRule.rename("com.google.guava.**" -> "my_conf.@1")
+    .inLibrary("com.google.guava" % "config" % "11.0")
+    .inProject
+)
+
 
 /*** ***/
 val sequence_common = Seq("org.specs2" %% "specs2-core" % "3.9.1" % "test",
@@ -99,6 +105,23 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) {
     case x => MergeStrategy.first
   }
 }
+
+//assemblyMergeStrategy in assembly := {
+//  case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.first
+//  case PathList("javax", "servlet", xs @ _*)    => MergeStrategy.last
+//  case PathList("javax", "activation", xs @ _*) => MergeStrategy.last
+//  case PathList("javax", "inject", xs @ _*)     => MergeStrategy.last
+//  case PathList("org", "aopalliance", xs @ _*)  => MergeStrategy.last
+//  case PathList("org", "apache", xs @ _*)       => MergeStrategy.last
+//  case PathList("com", "google", xs @ _*)       => MergeStrategy.last
+//  case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+//  case "plugin.properties" => MergeStrategy.last
+//  case "log4j.properties" => MergeStrategy.last
+//  case x =>
+//    val oldStrategy = (assemblyMergeStrategy in assembly).value
+//    oldStrategy(x)
+//}
+
 
 lazy val scalaServer = {
 Project("scalaServer", file("scalaServer"))

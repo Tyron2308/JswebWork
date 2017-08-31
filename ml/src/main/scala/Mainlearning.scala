@@ -23,9 +23,9 @@ object Main extends utiles {
 
     try {
       ModelSingleton.isValild()
-      // ModelSingleton.runMetric(ModelSingleton.metrics)
+       ModelSingleton.runMetric(ModelSingleton.metrics)
       //  ModelSingleton.load()
-      ModelSingleton.runOverfit()
+      //ModelSingleton.runOverfit()
     }
     catch { case e: RuntimeException => todebug("runtime error while processing data") }
   }

@@ -7,18 +7,20 @@ import akka.util.Timeout
 import com.outworkers.phantom.dsl.ListResult
 import database._
 import helper.utiles
+import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
+
 import scala.concurrent.Await
 
 
 /*** creer la matrix des data points, transforme les string boutique et les ip en ID ***/
 class RetrieveInformation(spark : SparkSession)
   extends java.io.Serializable with utiles {
-  import spark.implicits._
 
   /*** mettre sous form try catch et creer une fonction
   dans utile genertic a toute les databse ***/
 
+  import spark.implicits._
   todebug("print les boutique de ma list")
 //  try {
     val tablestore = DmpDatabase.users
@@ -80,6 +82,7 @@ class RetrieveInformation(spark : SparkSession)
         case true => None
       }
     }
+
 
     val regroup = todf.map {
       elem => (elem.getAs[String](0),

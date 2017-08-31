@@ -8,7 +8,9 @@ import database.{AucDatabase, MetricDatabase, OverfitDatabase, UserDatabase}
 import org.apache.spark.mllib.recommendation._
 import org.apache.spark.rdd.RDD
 import helper.utiles
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
+
 import scala.annotation.tailrec
 
 /*** Modelsingleton est l object qui permet de gerer la logique du programme.  ***/
@@ -37,9 +39,15 @@ object definition {
 
 object ModelSingleton extends utiles {
 
-  val spark: SparkSession = SparkSession.builder()
+
+  //val conf = new SparkConf(true).setAppName("jswebRecommander")
+    //.set("spark.cassandra.connection.host", "37.187.130.155, 51.255.86.136")
+
+//  val spark = new SparkContext(conf)
+  @transient val spark: SparkSession = SparkSession.builder()
     .appName("machine learnig")
-    .config("spark.master", "local")
+    .config("spark.cassandra.connection.host",
+      "37.187.130.155, 51.255.86.136")
     .getOrCreate()
 
   val (information, rddmatrixInt) = createMatrixDatapoint()
@@ -66,7 +74,6 @@ object ModelSingleton extends utiles {
       case false => throw new RuntimeException(" matrix empty abort ml.")
     }
   }
-
 
   def runtestOnModel(): Vector[((hyper, MatrixFactorizationModel), String)] = {
 
