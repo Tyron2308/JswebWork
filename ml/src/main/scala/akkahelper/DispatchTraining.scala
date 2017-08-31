@@ -15,46 +15,24 @@ class DispatchTraining(mu: LogMetric[MatrixFactorizationModel], sequencedata: Se
   extends java.io.Serializable with Dispatch
 {
 
-  todebug("....3")
-  val training      = sequencedata(0)
-    .asInstanceOf[Vector[(Long, Array[(Long, Int)])]]
-
+  val training      = sequencedata(0).asInstanceOf[Vector[(Long, Array[(Long, Int)])]]
   val allAds        = sequencedata(1).asInstanceOf[Broadcast[Array[(Long, Int)]]]
-//  val ratingslabel  = sequencedata(2).asInstanceOf[Vector[Any]]
-
-  /** enlever un cache **/
   val rdd           = spark.sparkContext
                            .parallelize(training)
                            .cache()
 
-  todebug("....t")
-  val nvxrating     = mu.asInstanceOf[OverfitingMetric].trainData(rdd)
+  if (rdd.isEmpty())
+    throw new RuntimeException("matrix in Dispatch training is empty")
 
-//  nvxrating
-
+  val nvxrating     = mu.asInstanceOf[OverfitingMetric].trainData(Some(rdd))
   for (elem <- 1 to 10) {
     self ! train(nvxrating, hyperparameter.name, sequencedata.drop(1))
   }
 
-  todebug("here apres avoiir call 10 x train")
-  //self ! train(null, null, null)
   override def receive: Receive = {
 
     case train(rat, name, sequence) =>
 
-
-      todebug("TRAINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-      println("TRAIN BABE")
-
-      println("TRAIN BABE")
       val sys           = ActorSystem("WorkerTraining")
       val pd            = sys.actorOf(Props[WorkerTrainiing]
         (new WorkerTrainiing(mu, name, hyperparameter, spark, evaluateHelper)))

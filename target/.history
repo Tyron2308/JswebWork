@@ -296,3 +296,6 @@ assembly
 reload
 compile 
 assembly
+reload
+compile 
+assembly

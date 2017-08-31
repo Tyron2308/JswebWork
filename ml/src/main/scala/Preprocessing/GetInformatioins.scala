@@ -29,7 +29,7 @@ class RetrieveInformation(spark : SparkSession)
     val result = Await.result(list, timeout.duration)
       .asInstanceOf[ListResult[Record]]
     val todf = result.records
-      .map { elem => (elem.ip, elem.boutique) }
+      .map { elem => (elem.ip, elem.shop) }
       .toDF("ip", "boutique")
 
     todf.show(10)

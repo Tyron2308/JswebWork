@@ -39,25 +39,20 @@ object definition {
 
 object ModelSingleton extends utiles {
 
-
-  //val conf = new SparkConf(true).setAppName("jswebRecommander")
-    //.set("spark.cassandra.connection.host", "37.187.130.155, 51.255.86.136")
-
-//  val spark = new SparkContext(conf)
-  @transient val spark: SparkSession = SparkSession.builder()
+ @transient val spark: SparkSession = SparkSession.builder()
     .appName("machine learnig")
     .config("spark.cassandra.connection.host",
       "37.187.130.155, 51.255.86.136")
     .getOrCreate()
 
   val (information, rddmatrixInt) = createMatrixDatapoint()
-  val metrics = Vector(new AucMetric(AucDatabase.users, spark),
-    new RmseMetric(MetricDatabase.users, spark))
+  val metrics                     = Vector(new AucMetric(AucDatabase.users, spark),
+                                           new RmseMetric(MetricDatabase.users, spark))
 
-  val model = new Model(spark)
-  val sequence = model.create(rddmatrixInt.get)
-  val ratings = model.trainData(rddmatrixInt.get)
-    .asInstanceOf[RDD[Rating]]
+  val model     = new Model(spark)
+  val sequence  = model.create(rddmatrixInt)
+  val ratings   = model.trainData(rddmatrixInt)
+                       .asInstanceOf[RDD[Rating]]
 
   for (elem <- sequence) {
     elem.cache();
@@ -67,11 +62,13 @@ object ModelSingleton extends utiles {
   /** * rank score model est fait pour remplacer ces lignes ***/
   rddmatrixInt.get.unpersist()
 
-  @throws(classOf[RuntimeException])
-  def isValild(): Unit = {
+   def isValild(): Boolean = {
     rddmatrixInt.isDefined match {
-      case true => todebug("rdd is okay")
-      case false => throw new RuntimeException(" matrix empty abort ml.")
+      case true =>
+        todebug("rdd is okay")
+        true
+      case false =>
+        false
     }
   }
 
@@ -101,13 +98,18 @@ object ModelSingleton extends utiles {
   def createMatrixDatapoint():
   (RetrieveInformation, Option[RDD[(Long, Array[(Long, Int)])]]) = {
     val in = new RetrieveInformation(spark)
-    val array = in.matrixInt.get.toVector
 
+    val bool = isValild()
+    if (bool == false)
+      (in, None)
+    else {
+    val array = in.matrixInt.get.toVector
     array.length match {
       case x if (x > 0) =>
         (in, Some(spark.sparkContext.parallelize(array).cache()))
       case _ =>
         (in, None)
+    }
     }
   }
 
@@ -165,13 +167,20 @@ class Model(spark: SparkSession)
     None
   }
 
-  override def create(matrix: RDD[(Long, Array[(Long, Int)])])
+  @throws(classOf[RuntimeException])
+  override def create(matrix: Option[RDD[(Long, Array[(Long, Int)])]])
   : Seq[RDD[(Long, Array[(Long, Int)])]] = {
-    (matrix.randomSplit(Array(0.7, 0.1, 0.2), 11L)).toSeq
+    if (matrix.get.isEmpty())
+      throw new RuntimeException("matrix empty")
+    (matrix.get.randomSplit(Array(0.7, 0.1, 0.2), 11L)).toSeq
   }
 
-  override def trainData(matrix: RDD[(Long, Array[(Long, Int)])])
+  @throws(classOf[RuntimeException])
+  override def trainData(matrix: Option[RDD[(Long, Array[(Long, Int)])]])
   : RDD[Any] = {
+
+    if (matrix.isDefined == false)
+      throw new RuntimeException("matrix emptu, wont perform processing on it")
 
     val sequence = create(matrix)
     val training = sequence(0)

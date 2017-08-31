@@ -48,30 +48,20 @@ class OverfitingMetric(metricDatabase: OverfitDatabase.users.type,
     metricDatabase.myselect()
   }
 
-  todebug("<-- To READ ---> ")
   val listAucLog = asynchRead()
   val timeout = new Timeout(500000)
   val result = Await.result(listAucLog, timeout.duration)
     .asInstanceOf[ListResult[AucLog]]
 
-  todebug("apply changement ---> ")
   val todf = result.records.map { elem =>
     ((elem.modelname, elem.good),
       elem.roclist(3))
   }
 
-  todebug("giga importabt")
-  result.records.map(elem =>
-    print("MEGA IMPORTANT " + elem.labelpred.length))
-  todebug("giga importabt2")
-
-
   val rdd = spark.sparkContext.parallelize(todf).cache()
   rdd.count()
 
-
   import spark.implicits._
-
   rdd.toDF().show()
 
   /** qui va selectionner les modeles pour lui envoyer sous cette forme ? **/
@@ -96,15 +86,17 @@ class OverfitingMetric(metricDatabase: OverfitDatabase.users.type,
     Rating(r.user, r.product, scaledRating)
   }
 
-  override def trainData(matrix: RDD[(Long, Array[(Long, Int)])])
+  override def trainData(matrix: Option[RDD[(Long, Array[(Long, Int)])]])
   : RDD[Any] = {
     todebug("TRAIN DATA ")
-    todebug("traindata dans overfiting")
+
+    if (matrix.isDefined == false)
+      throw new RuntimeException("Overfitting metric train data: matrix empty")
 
     import spark.implicits._
-    matrix.toDF().show(10)
+    matrix.get.toDF().show(10)
 
-    val scale = matrix.map {
+    val scale = matrix.get.map {
       case ((ip, product)) =>
         (ip.toLong,
           product.map { case (product, count) =>
@@ -238,19 +230,6 @@ class OverfitingMetric(metricDatabase: OverfitDatabase.users.type,
     }
 
     rdd.count()
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-    todebug("VALID MODEL ")
-
-    todebug("probleme")
     val user = listpred.flatMap {
       elem =>
         elem._1.map {
@@ -260,20 +239,12 @@ class OverfitingMetric(metricDatabase: OverfitDatabase.users.type,
 
     import spark.implicits._
     todebug("12222")
+
     val s = spark.sparkContext.parallelize(user)
     s.toDF().show()
     val flemme = s.groupBy(_._1).collect()
-
-
-    todebug("icic.....................")
-//    flemme.toDF().show()
-
-    todebug("LAaaaaaaaaaaaaaa ste[ 1 ")
     val tmp = ip.map { elem => elem.swap }
     val tmpboutique = boutique.map { elem => elem.swap }
-    todebug("LAaaaaaaaaaaaaaa ste[ 2 ")
-
-
     val transform = flemme.flatMap {
       elem =>
         elem._2.map {
@@ -289,15 +260,11 @@ class OverfitingMetric(metricDatabase: OverfitDatabase.users.type,
         }
     }
 
-        todebug("affiche transform ===>")
+    todebug("affiche transform ===>")
     import spark.implicits._
-  //  transform.toDF().show()
-        spark.sparkContext.parallelize(transform).toDF().show(transform.length)
-      //  val sorted_model   = rdd.sortBy(elem => elem._1)
 
-      //}
-
-//    databaseuser.store(new User(UUIDs.timeBased(),
+    spark.sparkContext.parallelize(transform).toDF().show(transform.length)
+    //databaseuser.store(new User(UUIDs.timeBased(),
   //    transform.toList, List.empty[Double]))
     }
 }
