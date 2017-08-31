@@ -60,7 +60,7 @@ object ModelSingleton extends utiles {
   }
 
   /** * rank score model est fait pour remplacer ces lignes ***/
-  rddmatrixInt.get.unpersist()
+  //rddmatrixInt.get.unpersist()
 
    def isValild(): Boolean = {
     rddmatrixInt.isDefined match {
@@ -99,17 +99,16 @@ object ModelSingleton extends utiles {
   (RetrieveInformation, Option[RDD[(Long, Array[(Long, Int)])]]) = {
     val in = new RetrieveInformation(spark)
 
-    val bool = isValild()
-    if (bool == false)
-      (in, None)
-    else {
+   // val bool = isValild()
+    //if (bool == false)
+      //(in, None)
+    //else {
     val array = in.matrixInt.get.toVector
     array.length match {
       case x if (x > 0) =>
         (in, Some(spark.sparkContext.parallelize(array).cache()))
       case _ =>
         (in, None)
-    }
     }
   }
 
@@ -122,6 +121,7 @@ object ModelSingleton extends utiles {
   def runMetric(metrics: Vector[LogMetric[MatrixFactorizationModel]]): Unit =
     (metrics) match {
       case x if (x.length > 0) =>
+        todebug("run metric on one model...")
         model.runMetricOnModel(rankerdic, helperEvalue)(x.head, sequencetoSend)
         runMetric(x.tail)
       case _ =>
@@ -180,7 +180,8 @@ class Model(spark: SparkSession)
   : RDD[Any] = {
 
     if (matrix.isDefined == false)
-      throw new RuntimeException("matrix emptu, wont perform processing on it")
+      throw new RuntimeException("matrix emptu," +
+        " wont perform processing on it")
 
     val sequence = create(matrix)
     val training = sequence(0)

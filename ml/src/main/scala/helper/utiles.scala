@@ -4,7 +4,7 @@ package helper
   * Created by tyron on 25/07/17.
   */
 
-trait utiles {
+trait utiles extends java.io.Serializable {
 
   def todebug(dtr: String*): Unit = {
     println(Console.GREEN + dtr(0))

@@ -4,7 +4,7 @@
 		module="common_2.11"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20170831104532"
+		publication="20170831165738"
 	>
 		<description>
 		common
@@ -50,5 +50,9 @@
 		<dependency org="org.scalamacros" name="paradise_2.11.8" rev="2.1.0" conf="plugin->default(compile)">
 			<exclude org="orgslf4j" module="log4j-over-slf4j" name="*" type="*" ext="*" conf="" matcher="exact"/>
 		</dependency>
+		<dependency org="org.apache.spark" name="spark-core_2.11" rev="2.1.0" conf="provided->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-sql_2.11" rev="2.1.0" conf="provided->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-mllib_2.11" rev="2.1.0" conf="provided->default(compile)"/>
+		<dependency org="com.datastax.spark" name="spark-cassandra-connector_2.11" rev="2.0.3" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

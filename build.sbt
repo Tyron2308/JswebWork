@@ -81,6 +81,14 @@ val sequence_common = Seq("org.specs2" %% "specs2-core" % "3.9.1" % "test",
   "com.outworkers" %% "phantom-connectors" % "2.11.2" exclude("org.slf4j" ,"log4j-over-slf4j"),
   compilerPlugin("org.scalamacros" % "paradise" % "2.1.0"
   cross CrossVersion.full exclude("orgslf4j", "log4j-over-slf4j")))
+//  "com.datastax.spark" % "spark-cassandra-connector-unshaded_2.10"
+//    % "2.0.0-M3" % Provided)
+
+val datastax = Seq("com.datastax.spark" %
+  "spark-cassandra-connector-unshaded_2.11" % "2.0.3")
+
+val datastax3 = Seq("com.datastax.spark"
+        %% "spark-cassandra-connector" % "2.0.3")
 
 val sequencespark = Seq(
   "org.apache.spark" %% "spark-core" % "2.1.0" % Provided,
@@ -88,18 +96,19 @@ val sequencespark = Seq(
   "org.apache.spark"  %% "spark-mllib" % "2.1.0" % Provided)
 
 
-lazy val root = project.in( file(".") )
+lazy val root = project.in(file("."))
     	    	  .dependsOn(common % "compile->compile", ml)
         	  .settings(commonsettings, aggregate in update := false)
 
 lazy val common =  { Project("common", file("common")).settings(
-  commonsettings, libraryDependencies ++= sequence_common)
+  commonsettings,
+  libraryDependencies ++= sequence_common ++ sequencespark ++ datastax3)
 }
 
 lazy val ml = {
 Project("ml", file("ml"))
     .dependsOn(common)//, scalaServer)
-    .settings(commonsettings, libraryDependencies ++= sequencespark)
+    .settings(commonsettings)
 
 }
 
@@ -108,6 +117,22 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) {
     case PathList("META-INF", xs @ _*) => MergeStrategy.discard
     case x => MergeStrategy.first
   }
+}
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", "io.netty.versions.properties") => MergeStrategy.first
+  case PathList("javax", "servlet", xs @ _*)    => MergeStrategy.last
+  case PathList("javax", "activation", xs @ _*) => MergeStrategy.last
+  case PathList("javax", "inject", xs @ _*)     => MergeStrategy.last
+  case PathList("org", "aopalliance", xs @ _*)  => MergeStrategy.last
+  case PathList("org", "apache", xs @ _*)       => MergeStrategy.last
+  case PathList("com", "google", xs @ _*)       => MergeStrategy.last
+  case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
+  case "plugin.properties" => MergeStrategy.last
+  case "log4j.properties" => MergeStrategy.last
+  case x =>
+    val oldStrategy = (assemblyMergeStrategy in assembly).value
+    oldStrategy(x)
 }
 
 //assemblyMergeStrategy in assembly := {

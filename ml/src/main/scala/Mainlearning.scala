@@ -16,13 +16,14 @@ object Main extends utiles {
     todebug(" creation des database - metrics")
     AucDatabase.create()
     MetricDatabase.create()
-    DmpDatabase.create()
+    //DmpDatabase.create()
     OverfitDatabase.create()
     UserDatabase.create()
     todebug("run model ")
 
     try {
       ModelSingleton.isValild()
+      todebug("run  metric on Model : Auc metric and rmse metric ")
        ModelSingleton.runMetric(ModelSingleton.metrics)
       //  ModelSingleton.load()
       //ModelSingleton.runOverfit()

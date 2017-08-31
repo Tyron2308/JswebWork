@@ -7,7 +7,7 @@
 		revision="1.0"
 		conf="compile-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20170831104534"/>
+		date="20170831174143"/>
 	<dependencies>
 		<module organisation="org.scala-lang" name="scala-parser-combinators">
 			<revision name="2.11.0-M4" status="release" pubdate="20130711102407" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.0-M4/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="33">
@@ -22,7 +22,7 @@
 			</revision>
 		</module>
 		<module organisation="com.JSWB" name="common_2.11">
-			<revision name="0.1.0-SNAPSHOT" status="integration" pubdate="20170831104532" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
+			<revision name="0.1.0-SNAPSHOT" status="integration" pubdate="20170831174137" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
 				<metadata-artifact status="failed" details="" size="0" time="0" searched="false"/>
 				<caller organisation="scalaserver" name="scalaserver_2.11" conf="compile-internal, compile, provided, optional" rev="0.1.0-SNAPSHOT" rev-constraint-default="0.1.0-SNAPSHOT" rev-constraint-dynamic="0.1.0-SNAPSHOT" callerrev="1.0"/>
 				<artifacts>

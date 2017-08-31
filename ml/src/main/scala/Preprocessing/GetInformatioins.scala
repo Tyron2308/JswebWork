@@ -9,7 +9,6 @@ import database._
 import helper.utiles
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
-
 import scala.concurrent.Await
 
 
@@ -25,14 +24,19 @@ class RetrieveInformation(spark : SparkSession)
 //  try {
     val tablestore = DmpDatabase.users
     val timeout = new Timeout(500000)
-    val list = tablestore.myselect()
-    val result = Await.result(list, timeout.duration)
-      .asInstanceOf[ListResult[Record]]
-    val todf = result.records
-      .map { elem => (elem.ip, elem.shop) }
-      .toDF("ip", "boutique")
+    val list = tablestore.myselect(spark)
 
-    todf.show(10)
+  //  val result = Await.result(list, timeout.duration)
+    //  .asInstanceOf[ListResult[Record]]
+
+
+//    val todf = result.records
+//      .map { elem => (elem.ip, elem.shop) }
+//      .toDF("ip", "boutique")
+
+  val todf = list.toDF("ip", "boutique")
+  list.toDF().show(100)
+//    todf.show(10)
 
   def mapToIndex(mapString: List[(String, Array[(String, Int)])],
                  IpwithIndex: Map[String, Long], boutiquewithIndex: Map[String, Long])
@@ -54,7 +58,10 @@ class RetrieveInformation(spark : SparkSession)
     mapString.map { elem => addToMap(elem)}.toMap
   }
 
-  def count_productUser(te: Map[String, Array[(String, Int)]]): Map[String, Array[(String, Int)]] = {
+  def count_productUser(te: Map[String, Array[(String, Int)]])
+  : Map[String, Array[(String, Int)]] = {
+
+    todebug("count product per user ")
     te.mapValues { elem =>
       if (elem.length > 1) {
         elem.foldLeft(Map[String, Int]())((accum, curr) => {
@@ -70,30 +77,39 @@ class RetrieveInformation(spark : SparkSession)
     }
   }
 
-  def process_dataToCollect(withIndex: Map[String, Long], IpwithIndex: Map[String, Long])
+  def process_dataToCollect(  withIndex: Map[String, Long],
+                              IpwithIndex: Map[String, Long])
   : (Map[String, Array[(String, Int)]],
     Option[Map[Long, Array[(Long, Int)]]]) = {
 
-    def assertValid(map: Map[String, Array[(String, Int)]]):
-    Option[Map[Long, Array[(Long, Int)]]] = {
-      val newmap = mapToIndex(map.toList, withIndex, IpwithIndex)
-      newmap.size == map.size match {
-        case true => Some(newmap)
-        case true => None
-      }
-    }
 
+    todebug(" processs data to collect ")
+  def assertValid(map: Map[String, Array[(String, Int)]])
+                :
+  Option[Map[Long, Array[(Long, Int)]]] = {
+    val newmap = mapToIndex(map.toList, withIndex, IpwithIndex)
+    Some(newmap)
+  }
+
+    println("passe ici")
 
     val regroup = todf.map {
       elem => (elem.getAs[String](0),
         elem.getAs[String](1)) }.collect().groupBy(_._1)
 
+
+    println("passe ici 2 ")
     val countPair = regroup.mapValues {
       k => (k.map(elem => (elem._2, 1)))
     }
 
+    todebug("passe ici 3")
     val mapWstring = count_productUser(countPair)
+
+    todebug("passse ici 4")
     val end = assertValid(mapWstring)
+
+    todebug("passe ici 5")
     end match {
       case Some(map) =>
         todebug("YESSSS")
@@ -103,6 +119,7 @@ class RetrieveInformation(spark : SparkSession)
         (mapWstring, None)
     }
   }
+
 
   private val ip               = todf.map { elem => (elem.getAs[String](0))}.distinct.rdd.cache
   private val boutique         = todf.map { elem => (elem.getAs[String](1))}.distinct.rdd.cache
@@ -121,4 +138,5 @@ class RetrieveInformation(spark : SparkSession)
   ip.unpersist()
   boutique.unpersist()
 
+  todebug("fin de get information ")
 }

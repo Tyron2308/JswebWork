@@ -2,6 +2,9 @@ package database
 import com.outworkers.phantom.{ResultSet, dsl}
 import com.outworkers.phantom.dsl._
 import databasehelper.definition
+import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.SparkSession
+
 import scala.concurrent.Future
 
 case class Record (id: UUID,
@@ -84,8 +87,26 @@ abstract class ConcreteLog extends retargeting with RootConnector {
   }
 */
 
-  def myselect(): Future[ListResult[Record]] = {
-    select.all().fetchRecord()
+  def myselect(spark: SparkSession): RDD[(String, String)] = {
+
+    import com.datastax.spark.connector._
+
+    val rdd = spark.sparkContext.cassandraTable("test", "retargeting")
+    val ip = rdd.map(elem => elem.getString("shop"))
+
+    val boutique = rdd.map(lel => lel.getInet("ip"))
+
+//    boutique.map(_.toString)
+    val test =     (ip.zipWithIndex()
+      ++ boutique.map(_.toString).zipWithIndex()).groupBy(_._2)
+    val finale =    test.map {
+      elem =>
+        val string1 = elem._2.head._1
+        val str = elem._2.last._1
+        (string1, str)
+    }
+    finale
+//    select.all().fetchRecord()
   }
 }
 
